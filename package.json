@@ -20,5 +20,9 @@
     "lodash-es": "^4.17.21",
     "query-string": "^8.1.0",
     "uuid": "^9.0.1"
-  }
+  },
+  "private": true,
+  "workspaces": [
+    "others/*"
+  ]
 }
