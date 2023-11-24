@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "addJS",
+  "version": "1.0",
+  "description": "向网页添加JS",
+  "icons": {
+    "16": "images/ig.png",
+    "32": "images/ig.png",
+    "48": "images/ig.png",
+    "128": "images/ig.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": ["https://joyday-pre.jd.com/*"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["scripts/*.js", "popup/*"],
+      "matches": ["https://joyday-pre.jd.com/*"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup/index.html"
+  },
+  "permissions": ["storage"]
+}

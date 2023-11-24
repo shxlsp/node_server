@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./rrule.js"></script>
+    <script>
+      const { RRule } = window.rrule;
+      console.time("all");
+      for (let i = 0; i < 500; i++) {
+        const rrule = new RRule({
+          freq: RRule.DAILY,
+          interval: 5,
+          byweekday: [RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR],
+          dtstart: new Date(2012, 1, 1),
+          until: new Date(2024, 12, 31),
+        });
+        console.log(rrule.toString());
+        console.time("123");
+        console.log(rrule.all(), "???");
+        console.timeEnd("123");
+      }
+      console.timeEnd("all");
+    </script>
+  </body>
+</html>

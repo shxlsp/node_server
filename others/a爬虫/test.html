@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var a = `<li data-sku="100066896394" data-spu="100066896394" ware-type="10"  bybt="0" class="gl-item">
+		<div class="gl-i-wrap">
+						<div class="p-img">
+							<a target="_blank" title="9.22早8全面开售！以旧换新至高补贴680元。搭载A17Pro芯片,钛金属强势加身,3倍光学变焦,新升级USB-C接口，iPhone巅峰之作！" 
+href="//item.jd.com/100066896394.html"
+ onclick="searchlog(1, '100066896394','17','2','','flagsClk=2307290');">
+								<img width="220" height="220" data-img="1" data-lazy-img="//img14.360buyimg.com/n7/jfs/t1/172522/31/40211/46154/6500da32F3d3b7cc2/cc79eb27341dd1c0.jpg" />
+				        	</a>
+							
+							<div data-lease="" data-catid="655" data-venid="1000000127" data-presale="0" data-yuyue="0"  data-yushou="0"  ></div>
+						</div>
+						
+						<div class="p-price">
+							<strong class="J_100066896394" data-presale="0" data-yuyue="0" data-yushou="0"  data-done="1"  >
+									<em>￥</em><i data-price="100066896394">10999.00</i>
+							</strong>
+						</div>
+						<div class="p-name p-name-type-2">
+							<a target="_blank" title="9.22早8全面开售！以旧换新至高补贴680元。搭载A17Pro芯片,钛金属强势加身,3倍光学变焦,新升级USB-C接口，iPhone巅峰之作！" 
+href="//item.jd.com/100066896394.html"
+ onclick="searchlog(1, '100066896394','17','1','','flagsClk=2307290');">
+								<em>Apple <font class="skcolor_ljg">iPhone</font> 15 Pro (A3104) 512GB 蓝色钛金属 支持移动联通电信5G 双卡双待手机</em>
+								<i class="promo-words" id="J_AD_100066896394">9.22早8全面开售！以旧换新至高补贴680元。搭载A17Pro芯片,钛金属强势加身,3倍光学变焦,新升级USB-C接口，iPhone巅峰之作！</i>
+							</a>
+						</div>
+						<div class="p-commit">
+							<strong><a id="J_comment_100066896394" target="_blank" 
+href="//item.jd.com/100066896394.html#comment"
+ onclick="searchlog(1, '100066896394','17','3','','flagsClk=2307290');"></a></strong>
+						</div>
+
+						<div class="p-shop" data-dongdong="" data-selfware="1" data-score="5" data-reputation="96"  >
+									<span class="J_im_icon"><a target="_blank" class="curr-shop hd-shopname" onclick="searchlog(1,'1000000127',0,58)" href="//mall.jd.com/index-1000000127.html?from=pc" title="Apple产品京东自营旗舰店">Apple产品京东自营旗舰店</a></span>
+						</div>
+
+						<div class="p-icons" id="J_pro_100066896394" data-done="1">
+								<i class="goods-icons J-picon-tips J-picon-fix" data-idx="1" data-tips="京东自营，品质保障">自营</i>
+								<i class="goods-icons3 J-picon-tips J-picon-fix" data-tips="该商品是当季新品">新品</i>
+						</div>
+						<div class="p-operate" >
+							<a class="p-o-btn contrast J_contrast contrast" data-sku="100066896394" href="javascript:;" onclick="searchlog(1, '100066896394','17','6','','flagsClk=2307290')"><i></i>对比</a>
+							<a class="p-o-btn focus  J_focus" data-sku="100066896394" href="javascript:;" onclick="searchlog(1, '100066896394','17','5','','flagsClk=2307290')"><i></i>关注</a>
+							<a href="javascript:;"  onclick="searchlog(1, '100066896394','17','4','','flagsClk=2307290')" class="p-o-btn addcart disabled"><i></i>加入购物车</a>
+						</div>
+							<div class="p-stock hide" data-stocknew="100066896394" data-province="北京"></div>
+		</div>
+	</li>`;
+      // sku 1 spu 2 title 4
+
+      // var reg = / (((?!(class|\s|width|onclick|href|height)).)*?)="(.*?)"/;
+      var reg =
+        / ((?:(?:(?!(?:class|\s|width|onclick|href|height|source-data-lazy-advertisement|target))).)*?)="(.*?)"/g;
+      const data = {};
+      while (true) {
+        const r = reg.exec(a);
+        console.log(r);
+        if (!r) {
+          break;
+        }
+        const key = r[1].trim();
+        if (key === "class") {
+          continue;
+        }
+        const value = r[2].trim();
+        data[key] = value;
+      }
+      console.log(data, Object.keys(data), Object.keys(data).length);
+      `<em>Apple <font class="skcolor_ljg">iPhone</font> 15 (A3092) 128GB 黑色 支持移动联通电信5G 双卡双待手机</em>
+			<em>￥</em><i data-price="100066896356">5999.00</i>
+			<i class="goods-icons J-picon-tips J-picon-fix" data-idx="1" data-tips="京东自营，品质保障">自营</i>
+			<i class="goods-icons3 J-picon-tips J-picon-fix" data-tips="该商品是当季新品">新品</i>`;
+      const regPrice = new RegExp(
+        `<em>(.+?)</em><i data-price="${data["data-price"]}">(.*?)</i>`
+      );
+      const regMiniTitle =
+        /<em>(.*?)<font class="skcolor_ljg">(.*?)<\/font>(.*?)<\/em>/;
+      const regSelf =
+        /<i .*?class=.*?goods-icon.*?data-tips="京东自营，品质保障".*?自营<\/i>/;
+      const regNew =
+        /<i .*?class=.*?goods-icon.*?data-tips="该商品是当季新品.*?新品<\/i>/;
+      const price = regPrice.exec(a);
+      const miniTitle = regMiniTitle.exec(a);
+      data.priceSymbol = price[1];
+      data["data-price"] = price[2];
+      data.miniTitleSource = miniTitle.slice(1).map((i) => i.trim());
+      data.miniTitle = miniTitle
+        .slice(1)
+        .map((i) => i.trim())
+        .join(" ");
+      data.isSelf = regSelf.test(a);
+      data.isNew = regNew.test(a);
+      console.log(price, miniTitle, data, Object.keys(data).length);
+      // console.log(reg.exec(a));
+      // console.log(a.match(reg));
+    </script>
+  </body>
+</html>

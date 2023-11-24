@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <style>
+      #closeBtn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <button id="openContact">打开联系人</button>
+      <button id="openModal">打开弹窗</button>
+      <button id="openMessage">打开消息</button>
+      <button id="openTab">跳转tab</button>
+      <button id="openWindow">打开独立框</button>
+      <button id="openSetting">打开设置</button>
+      <button id="openDrawerInChat">打开抽屉</button>
+      <button id="previewImage">查看图片</button>
+      <button id="closeBtn">X</button>
+      <a href="https://www.baidu.com" target="_blank">百度</a>
+    </div>
+    <script>
+      // window.addEventListener('contextmenu', (e) => e.preventDefault(), true)
+      window.onload = () => {
+        parent.postMessage(
+          { from: "taskListDrawer", eventName: "getParams" },
+          "*"
+        );
+        parent.postMessage(
+          { from: "taskListDrawer", eventName: "getMeVersion" },
+          "*"
+        );
+
+        parent.postMessage(
+          { from: "taskListDrawer", eventName: "pageLoad" },
+          "*"
+        );
+      };
+
+      function listenMessage(e) {
+        console.log("等等", e);
+        const { eventName, ...rest } = e.data;
+        if (!eventName) {
+          return;
+        }
+        console.log("等等", eventName, rest);
+        if (eventName === "myModalUpdate") {
+          parent.postMessage(
+            {
+              from: "taskListDrawer",
+              eventName: "updateEmbeddedModal",
+              data: { test: 123 },
+            },
+            "*"
+          );
+        }
+      }
+      window.addEventListener("message", listenMessage, false);
+
+      const openContact = document.getElementById("openContact");
+      openContact.addEventListener(
+        "contextmenu",
+        (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        },
+        true
+      );
+
+      let flag = 0;
+      openContact.onclick = () => {
+        parent.postMessage(
+          {
+            from: "taskListDrawer",
+            eventName: "selectPersons",
+            multiple: false,
+            disabled: true,
+            selectedList: [
+              { id: "ee:denglinhua3", app: "ee", pin: "denglinhua3" },
+            ],
+          },
+          "*"
+        );
+        if (flag % 2) {
+        } else {
+          // parent.postMessage({from: 'taskListDrawer', eventName: 'selectPersons',multiple: false,  disabled: false, disabledList: [{app: 'ee', pin: 'denglinhua3', disabled: true}, {app: 'ee', pin: 'liutie3',}], min: 1, embeddedSelectedPageUrl: 'http://localhost:5500/embeddedSelected.html'}, '*')
+        }
+        flag++;
+      };
+
+      const closeBtn = document.getElementById("closeBtn");
+      closeBtn.onclick = () => {
+        window.top.postMessage(
+          { from: "taskListDrawer", eventName: "close" },
+          "*"
+        );
+      };
+
+      const openModal = document.getElementById("openModal");
+      openModal.onclick = () => {
+        parent.postMessage(
+          {
+            from: "taskListDrawer",
+            eventName: "openEmbeddedModal",
+            url: "http://127.0.0.1:5500/embeddedModal.html",
+            urlFrom: "test",
+            modalName: "myModal",
+            width: 700,
+            height: 500,
+            closable: false,
+            footer: null,
+          },
+          "*"
+        );
+      };
+
+      const openMessage = document.getElementById("openMessage");
+      openMessage.onclick = () => {
+        const message = {
+          mid: 254744343,
+          msgId: "fb415bda-af40-4203-a307-961a5e7e4191",
+          sessionId: "10262076171",
+          sessionName: "吴力勤、甘松江、邓林华",
+          sessionType: 1,
+          timestamp: 1643250360870,
+          to: "1026207617",
+          toApp: "1",
+        };
+        parent.postMessage(
+          {
+            from: "taskListDrawer",
+            eventName: "locateSessionMessage",
+            message,
+          },
+          "*"
+        );
+        parent.postMessage({ from: "taskListDrawer", eventName: "close" }, "*");
+      };
+
+      const openTab = document.getElementById("openTab");
+      openTab.addEventListener("click", () => {
+        // parent.postMessage({from: 'taskListDrawer', eventName: 'openTabApp', tab: 'joywork'}, '*')
+        parent.postMessage(
+          {
+            from: "taskListDrawer",
+            eventName: "openTabApp",
+            tab: "joywork",
+            type: "embeddedEvent",
+            url: "jdme://jm/page_joywork_detail?mparam=%7B%22taskId%22%3A%22398928163235561472%22%7D",
+          },
+          "*"
+        );
+        parent.postMessage({ from: "taskListDrawer", eventName: "close" }, "*");
+      });
+
+      const openWindow = document.getElementById("openWindow");
+      openWindow.onclick = () => {
+        parent.postMessage(
+          {
+            from: "taskListDrawer",
+            eventName: "openWindowInChat",
+            pageUrl: "http://joyday-pre.jd.com/",
+            pageName: "CREATE_JOYDAY_SCHEDULE",
+            transferData: { a: 1 },
+          },
+          "*"
+        );
+      };
+
+      const openSetting = document.getElementById("openSetting");
+      openSetting.onclick = () => {
+        parent.postMessage(
+          {
+            from: "taskListDrawer",
+            eventName: "openSetting",
+            anchor: "calendar",
+          },
+          "*"
+        );
+      };
+
+      const openDrawerInChat = document.getElementById("openDrawerInChat");
+      openDrawerInChat.onclick = () => {
+        parent.postMessage(
+          {
+            from: "taskListDrawer",
+            eventName: "openDrawerInChat",
+            pageUrl: "http://joyday-pre.jd.com/",
+          },
+          "*"
+        );
+      };
+
+      const previewImage = document.getElementById("previewImage");
+      previewImage.onclick = () => {
+        parent.postMessage(
+          {
+            from: "taskListDrawer",
+            eventName: "previewImage",
+            url: "https://ddimg10.360buyimg.com/ee/jfs/t1/55061/8/22704/65384/63e99c92F13175b03/1a6dff87d30ab8c8.jpg",
+          },
+          "*"
+        );
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intersection Observer Example</title>
+    <style>
+      #target {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        margin-top: 500px; /* 触发滚动以显示元素 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="target">This is the target element</div>
+
+    <script>
+      // 目标元素
+      var targetElement = document.getElementById("target");
+
+      // Intersection Observer 配置
+      var observerOptions = {
+        root: null, // 使用视窗作为根
+        rootMargin: "0px", // 根的边界
+        threshold: 0.5, // 当目标元素50%进入视窗时触发回调
+      };
+
+      // 创建 Intersection Observer 实例并定义回调函数
+      var observer = new IntersectionObserver(callback, observerOptions);
+
+      // 开始观察目标元素
+      observer.observe(targetElement);
+
+      // 回调函数
+      function callback(entries, observer) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log("目标元素进入可视区域！");
+            // 在这里执行你想要的操作
+          } else {
+            console.log("目标元素离开可视区域！");
+            // 在这里执行你想要的操作
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

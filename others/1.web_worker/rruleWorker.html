@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./rrule.js"></script>
+    <script id="worker" type="javascript/worker">
+      console.log("Worker 线程启动");
+      importScripts("http://localhost:9090/worker/rrule.js");
+      this.RRule = rrule.RRule;
+      this.rruleList = [];
+      this.addEventListener("message", (e) => {
+        const { type, data } = e.data;
+        switch (type) {
+          case "rrule":
+            const rrule = new RRule(data);
+            rrule.toString()
+            //console.log(rrule.toString());
+            const all = rrule.all();
+            rruleList.push(all);
+            //console.log(all, "???");
+            //this.postMessage("okk");
+            break;
+          case "data":
+          console.log('收到');
+            this.postMessage({type: 'data', data: rruleList});
+            break;
+          default:
+            this.postMessage("unknown type");
+        }
+      });
+      // this.postMessage(111)
+    </script>
+    <script>
+      const { RRule } = window.rrule;
+      console.time("all");
+      for (let i = 0; i < 500; i++) {
+        const rrule = new RRule({
+          freq: RRule.DAILY,
+          interval: 5,
+          byweekday: [RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR],
+          dtstart: new Date(2012, 1, 1),
+          until: new Date(2024, 12, 31),
+        });
+        rrule.toString();
+        rrule.all();
+        // console.log(rrule.toString());
+        // console.time("123");
+        // console.log(rrule.all(), "???");
+        // console.timeEnd("123");
+      }
+      console.timeEnd("all");
+      console.time("init");
+      if (Worker) {
+        var workerScript = document.querySelector("#worker").textContent;
+        console.log(workerScript);
+        var blob = new Blob([workerScript], { type: "text/javascript" });
+        var worker = new Worker(window.URL.createObjectURL(blob));
+        worker.addEventListener("message", (e) => {
+          console.log(e.data, "??????????222");
+          if (e.data.type === "data") {
+            console.timeEnd("收到");
+            console.timeEnd("等待");
+            console.timeEnd("init");
+          }
+        });
+        console.time("等待");
+        console.time("循环");
+        for (let i = 0; i < 500; i++) {
+          worker.postMessage({
+            type: "rrule",
+            data: {
+              freq: RRule.DAILY,
+              interval: 5,
+              byweekday: [RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR],
+              dtstart: new Date(2012, 1, 1),
+              until: new Date(2024, 12, 31),
+            },
+          });
+        }
+        console.timeEnd("循环");
+        console.time("收到");
+        console.log("发送");
+        worker.postMessage({ type: "data" });
+      }
+    </script>
+  </body>
+</html>

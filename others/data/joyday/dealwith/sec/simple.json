@@ -1,0 +1,52 @@
+[
+  {
+    "LCP": 4571.07,
+    "resourceDataLoadedTime": 1626.9000000000003,
+    "firstNetTime": 1639.055
+  },
+  {
+    "LCP": 4294.275,
+    "resourceDataLoadedTime": 2421.2549999999997,
+    "firstNetTime": 2282.955
+  },
+  {
+    "LCP": 4200.56,
+    "resourceDataLoadedTime": 2047.03,
+    "firstNetTime": 2057.995
+  },
+  {
+    "LCP": 4177.974,
+    "resourceDataLoadedTime": 1061.155,
+    "firstNetTime": 1080.45
+  },
+  {
+    "LCP": 4166.75,
+    "resourceDataLoadedTime": 3765.405,
+    "firstNetTime": 3790.34
+  },
+  {
+    "LCP": 4177.974,
+    "resourceDataLoadedTime": 1061.155,
+    "firstNetTime": 1080.45
+  },
+  {
+    "LCP": 4166.75,
+    "resourceDataLoadedTime": 3765.405,
+    "firstNetTime": 3790.34
+  },
+  {
+    "LCP": 4070.345,
+    "resourceDataLoadedTime": 728.5099999999999,
+    "firstNetTime": 750.895
+  },
+  {
+    "LCP": 4410.77,
+    "resourceDataLoadedTime": 3782.64,
+    "firstNetTime": 3794.01
+  },
+  {
+    "LCP": 4324.939,
+    "resourceDataLoadedTime": 736.035,
+    "firstNetTime": 747.715
+  }
+]

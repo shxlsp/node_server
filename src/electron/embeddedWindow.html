@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>测试</title>
+  </head>
+  <body>
+    <button id="openTab">打开tab</button>
+    <script>
+      window.onload = () => {
+        // window.jsBridge.getParams().then((res) => {
+        //   console.log('等等', res)
+        // })
+      };
+      // window.jsBridge.on('updateParams', () => {
+      //   window.jsBridge.call({name: 'getGroupInfo'})
+      // })
+      window.jsBridge.call({ name: "getGroupInfo" });
+      window.jsBridge.on("setGroupInfo", (data) => {
+        console.log("等等 groupInfo", data);
+      });
+      // window.jsBridge.call({name: 'getMeVersion'}).then((res) => {
+      //   console.log(res)
+      // })
+      // window.jsBridge.on("getUserStateResult", (result) => {
+      //   console.log("等等", result);
+      // });
+      // window.jsBridge.call({
+      //   name: "getUserState",
+      //   data: {
+      //     requestId: "getUserState" + Date().toString(),
+      //     uid: { app: "ee", pin: "denglinhua3" },
+      //   },
+      // });
+      // window.jsBridge.on("openSessionResult", (result) => {
+      //   console.log("等等", result);
+      // });
+      // window.jsBridge.call({
+      //   name: "openSession",
+      //   data: {
+      //     requestId: "openSession" + Date().toString(),
+      //     uid: { app: "ee", pin: "ext.denglinhua1" },
+      //     sessionType: 0,
+      //   },
+      // });
+
+      // window.jsBridge.call({
+      //   name: "getClientInfo"
+      // }).then((res) => {
+      //   console.log('getClientInfo', res)
+      // })
+      // setTimeout(() => {
+      //   window.jsBridge.call({
+      //     name: "activeMainWindow"
+      //   });
+      // }, 4*1000);
+      // setTimeout(() => {
+      //   window.jsBridge.setTitle('哈哈哈')
+      // }, 1000 * 4);
+
+      const openTab = document.getElementById("openTab");
+      openTab.addEventListener("click", () => {
+        window.jsBridge.call({
+          name: "openTabApp",
+          data: {
+            tab: "joywork",
+            type: "embeddedEvent",
+            data: {
+              url: "jdme://jm/page_joywork_detail?mparam=%7B%22taskId%22%3A%22398928163235561472%22%7D",
+            },
+          },
+        });
+        window.jsBridge.call({
+          name: "activeMainWindow",
+        });
+      });
+    </script>
+  </body>
+</html>
