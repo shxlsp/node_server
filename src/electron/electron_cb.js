@@ -1,14 +1,15 @@
 const operationRender = () => {
-  alert(`${window.require}, ${window.electron}, ${window.System}`);
+  // alert(`${window.require}, ${window.electron}, ${window.System}`);
   //样式
   const link = document.createElement("link");
-  link.href = "http://localhost:9090/e/css";
+  link.href = "http://localhost:9001/e/css";
   link.rel = "stylesheet";
   document.head.appendChild(link);
 
   const template = `
     <div class="electron-dev-operation large">
       <div class="open-dev-tools btn">打开控制台</div>
+      <input class="input"/><div class="runCode btn">运行代码</div>
       <div class="refresh btn">刷新页面</div>
       <div class="hide btn">收起</div>
     </div>
@@ -25,6 +26,9 @@ const operationRender = () => {
       case className.includes("refresh"):
         refresh();
         break;
+      case className.includes("runCode"):
+        eval(document.querySelector(".input").value);
+        break;
       case className.includes("hide"):
       case className.includes("show"):
         hideOrShow();
@@ -37,8 +41,11 @@ const operationRender = () => {
     try {
       alert(
         "window.require：" +
-          JSON.stringify(Object.keys(window).filter((k) => k.includes("r")))
+          JSON.stringify(
+            Object.keys(window).filter((k) => k.includes("require"))
+          )
       );
+      //require('electron').remote.BrowserWindow.getAllWindows()[0].openDevTools()
       const { ipcRenderer, remote } = require("electron");
       window.ipcRenderer = ipcRenderer;
       window.remote = remote;
